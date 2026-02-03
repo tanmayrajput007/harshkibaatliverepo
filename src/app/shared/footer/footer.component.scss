@@ -1,24 +1,29 @@
 .footer-section {
-  background: #0a3d62; /* Deep blue theme */
-  color: #dce6f1;
+  background: linear-gradient(180deg, #0a1121 0%, #0b132b 100%);
+  color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 
   .footer-title {
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     color: #ffffff;
   }
 
   .footer-heading {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     margin-bottom: 12px;
     color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .footer-desc {
     font-size: 0.95rem;
     opacity: 0.85;
-    line-height: 1.4;
+    line-height: 1.6;
   }
 
   .footer-links li {
@@ -26,26 +31,30 @@
   }
 
   .footer-links a {
-    color: #dce6f1;
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     font-size: 0.95rem;
-    opacity: 0.9;
-    transition: 0.2s;
+    transition: 0.2s ease;
 
     &:hover {
-      opacity: 1;
-      margin-left: 4px;
       color: #ffffff;
+      margin-left: 4px;
     }
   }
 
-  .footer-divider {
+  .btn-outline-light {
     border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+
+  .footer-divider {
+    border-color: rgba(255, 255, 255, 0.12);
     margin: 25px 0;
   }
 
   .footer-bottom {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    letter-spacing: 0.4px;
   }
 }

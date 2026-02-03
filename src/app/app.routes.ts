@@ -4,7 +4,7 @@ import { VideosComponent } from './pages/videos/videos.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, title: 'Harsh ki baat LIVE' },
+  { path: 'home', component: HomeComponent, title: 'Harsh ki baat' },
   { path: 'videos', component: VideosComponent, title: 'Videos' },
   { path: 'about', loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent) },
   { path: 'blog', loadComponent: () => import('./pages/blog/blog.component').then(m => m.BlogComponent) },

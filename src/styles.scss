@@ -2,4 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ink: #0b132b;
+  --navy: #0a1121;
+  --sand: #f8f6f2;
+  --accent: #e63946;
+  --accent-2: #f4d35e;
+  --muted: #6b7280;
+  --font-display: 'Bricolage Grotesque', 'Work Sans', sans-serif;
+  --font-body: 'Work Sans', 'Bricolage Grotesque', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--sand);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn-danger {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #c72d3a;
+  border-color: #c72d3a;
+}
