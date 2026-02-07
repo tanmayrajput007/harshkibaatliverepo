@@ -4,13 +4,14 @@ import { VideoCardComponent } from '../../shared/video-card/video-card.component
 import { YoutubeService } from '../../core/youtube.service';
 import { XService } from '../../core/x.service';
 import { RouterLink } from '@angular/router';
-import { DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { ChannelVideosComponent } from '../../shared/channel-videos/channel-videos.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
-  imports: [SafePipe, VideoCardComponent, RouterLink, DatePipe, FooterComponent, JsonPipe, NgFor, NgIf],
+  imports: [SafePipe, VideoCardComponent, RouterLink, DatePipe, FooterComponent, JsonPipe, NgFor, NgIf, NgClass, ChannelVideosComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
@@ -24,6 +25,18 @@ export class HomeComponent implements OnInit {
   videoLoadError: string | null = null;
 
   recentVideos: { id: string; title: string; description: string }[] = [];
+  extraChannelSections: {
+    channelId: string;
+    title: string;
+    videos: { id: string; title: string; description: string }[];
+  }[] = [];
+  featuredCards: {
+    channelId: string;
+    title: string;
+    colorClass: string;
+    video?: { id: string; title: string; description: string };
+    subscribers?: string | null;
+  }[] = [];
   subscriberCount: string | null = null;
   subscriberCountError: string | null = null;
   subscriberCountDisplay: string | null = null;
@@ -42,29 +55,60 @@ export class HomeComponent implements OnInit {
     // }
 
     this.isLoadingVideos = true;
-    this.youtube.fetchVideos(null, null, environment.YOUTUBE_MAX_RESULTS).subscribe({
+    const extras = environment.EXTRA_CHANNELS || [];
+    const allChannelIds = [environment.CHANNEL_ID, ...extras.map((c) => c.id)];
+
+    this.youtube.fetchChannelsBundle(allChannelIds, environment.YOUTUBE_MAX_RESULTS).subscribe({
       next: (resp: any) => {
-        this.recentVideos = (resp.items || []).map((item: any) => ({
-          id: item.id.videoId,
-          title: item.snippet?.title || 'Recent video',
-          description: item.snippet?.description || ''
+        const channels = resp?.channels || [];
+        const mainChannel = channels.find((c: any) => c.channelId === environment.CHANNEL_ID);
+        const extraChannels = channels.filter((c: any) => c.channelId !== environment.CHANNEL_ID);
+
+        this.recentVideos = (mainChannel?.videos || []).map((item: any) => ({
+          id: item.id,
+          title: item.title || 'Recent video',
+          description: item.description || ''
         }));
+
+        this.extraChannelSections = extraChannels.map((channel: any) => ({
+          channelId: channel.channelId,
+          title: channel.title,
+          videos: (channel.videos || []).map((item: any) => ({
+            id: item.id,
+            title: item.title || 'Recent video',
+            description: item.description || ''
+          }))
+        }));
+
+        const mainSubs = mainChannel?.subscribers ? this.formatSubscribers(mainChannel.subscribers) : null;
+        this.subscriberCountDisplay = mainSubs;
+        this.subscriberCount = mainChannel?.subscribers || null;
+
+        const mainCard = {
+          channelId: environment.CHANNEL_ID,
+          title: 'Harsh ki Baat Live',
+          colorClass: 'accent-main',
+          video: this.recentVideos[0],
+          subscribers: mainSubs
+        };
+
+        const extraCards = this.extraChannelSections.map((section, idx) => {
+          const channelData = extraChannels.find((c: any) => c.channelId === section.channelId);
+          return {
+            channelId: section.channelId,
+            title: section.title,
+            colorClass: idx === 0 ? 'accent-two' : 'accent-three',
+            video: section.videos[0],
+            subscribers: channelData?.subscribers ? this.formatSubscribers(channelData.subscribers) : null
+          };
+        });
+
+        this.featuredCards = [mainCard, ...extraCards];
         this.isLoadingVideos = false;
       },
       error: () => {
         this.videoLoadError = 'Unable to load videos right now.';
         this.isLoadingVideos = false;
-      }
-    });
-
-    this.youtube.fetchChannelStats().subscribe({
-      next: (resp: any) => {
-        const count = resp?.items?.[0]?.statistics?.subscriberCount ?? null;
-        this.subscriberCount = count;
-        this.subscriberCountDisplay = count ? this.formatSubscribers(count) : null;
-      },
-      error: () => {
-        this.subscriberCountError = 'Unable to load subscriber count.';
       }
     });
 

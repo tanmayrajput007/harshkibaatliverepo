@@ -3,19 +3,44 @@
   <div class="container position-relative">
     <div class="row align-items-center g-5">
       <div class="col-lg-6 text-center text-lg-start">
-        <div class="badge-row">
+        <!-- <div class="badge-row">
           <span class="pill solid">Live Commentary</span>
           <span class="pill outline">Independent Analysis</span>
-        </div>
-        <h1 class="hero-title">Harsh ki Baat</h1>
+        </div> -->
+        <h1 class="hero-title">harsh ki baat</h1>
         <p class="hero-sub">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.</p>
         <div class="hero-actions d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
           <a class="btn btn-danger btn-lg" target="_blank" rel="noopener"
             href="https://www.youtube.com/@harshkibaatLIVE" role="button">Watch on YouTube</a>
-          <a class="btn btn-outline-light btn-lg btn-static-outline" target="_blank" rel="noopener"
-            href="https://www.youtube.com/@harshkibaatLIVE" role="button">Subscribe</a>
+          <!-- <a class="btn btn-outline-light btn-lg btn-static-outline" target="_blank" rel="noopener"
+            href="https://www.youtube.com/@harshkibaatLIVE" role="button">Subscribe</a> -->
+          <div class="subscribercount-div">
+            <div class="subscriber-label">Subscribers</div>
+            <div class="subscriber-value" *ngIf="subscriberCountDisplay; else subscriberCountFallback">
+              {{ subscriberCountDisplay }}
+            </div>
+            <ng-template #subscriberCountFallback>
+              <div class="subscriber-value" *ngIf="!subscriberCountError">Loading...</div>
+              <div class="subscriber-value error" *ngIf="subscriberCountError">{{ subscriberCountError }}</div>
+            </ng-template>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-value">Daily</div>
+              <div class="stat-value">Live Streams</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">Sharp</div>
+              <div class="stat-value">Editorials</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">Trusted</div>
+              <div class="stat-value">Commentary</div>
+            </div>
+          </div>
         </div>
-        <div class="subscribercount-div">
+        <!-- <div class="subscribercount-div">
           <div class="subscriber-label">Subscribers</div>
           <div class="subscriber-value" *ngIf="subscriberCountDisplay; else subscriberCountFallback">
             {{ subscriberCountDisplay }}
@@ -24,7 +49,7 @@
             <div class="subscriber-value" *ngIf="!subscriberCountError">Loading...</div>
             <div class="subscriber-value error" *ngIf="subscriberCountError">{{ subscriberCountError }}</div>
           </ng-template>
-        </div>
+        </div> -->
         <div class="contact-info">
           <div class="contact-item">
             <span class="contact-icon">
@@ -40,7 +65,25 @@
             <span class="contact-text">+91 98977 35444</span>
           </div>
         </div>
-        <div class="hero-stats">
+        <div class="follow-wrap mt-3">
+          <div class="follow-title">Follow us</div>
+          <div class="follow-line"></div>
+          <div class="topic-chips social-chips">
+            <a class="social-chip twitter" target="_blank" rel="noopener" href="https://x.com/harshktweets?lang=en"
+              aria-label="Twitter (X)">
+              <img src="assets\images\64cebdd90aef8ef8c749e848_X-EverythingApp-Logo-Twitter.jpg" alt="Twitter">
+            </a>
+            <a class="social-chip facebook" target="_blank" rel="noopener"
+              href="https://www.facebook.com/harshkibaatLIVE/" aria-label="Facebook">
+              <img src="assets\images\Facebook_logo-removebg-preview.png" alt="Facebook">
+            </a>
+            <a class="social-chip instagram" target="_blank" rel="noopener"
+              href="https://www.instagram.com/harshkibaatlive/?hl=en" aria-label="Instagram">
+              <img src="assets\images\instanew.png" alt="Instagram">
+            </a>
+          </div>
+        </div>
+        <!-- <div class="hero-stats">
           <div class="stat">
             <div class="stat-value">Daily</div>
             <div class="stat-label">Live Streams</div>
@@ -53,54 +96,74 @@
             <div class="stat-value">Trusted</div>
             <div class="stat-label">Commentary</div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="col-lg-6 text-center text-lg-end">
         <div class="portrait-frame">
-          <img src="assets\images\308127914_629379748754009_3693171855939681441_n.jpg (1).jpeg" alt="Harsh"
-            class="portrait img-fluid" />
+          <img src="assets\images\Untitled (33) (1).jpeg" alt="Harsh" class="portrait img-fluid" />
         </div>
-        <div class="topic-chips">
-          <span>Ground Reports</span>
-          <span>Policy Decoded</span>
-          <span>Citizen Voices</span>
-        </div>
+
       </div>
+      <!-- <div class="topic-chips social-chips">
+        <a class="social-chip twitter" target="_blank" rel="noopener"
+          href="https://x.com/harshktweets?lang=en" aria-label="Twitter (X)">
+          <img
+            src="assets\images\64cebdd90aef8ef8c749e848_X-EverythingApp-Logo-Twitter.jpg"
+            alt="Twitter">
+        </a>
+        <a class="social-chip facebook" target="_blank" rel="noopener"
+          href="https://www.facebook.com/harshkibaatLIVE/" aria-label="Facebook">
+          <img src="assets\images\Facebook_logo-removebg-preview.png" alt="Facebook">
+        </a>
+        <a class="social-chip instagram" target="_blank" rel="noopener"
+          href="https://www.instagram.com/harshkibaatlive/?hl=en" aria-label="Instagram">
+          <img src="assets\images\download-removebg-preview.png" alt="Instagram">
+        </a>
+      </div> -->
     </div>
   </div>
 </section>
 
 <main class="main-content">
   <div class="container">
-    <section class="featured">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-7">
-          <div class="ratio featured-video shadow-sm">
-            <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
-              *ngIf="recentVideos.length" (click)="openVideo(recentVideos[0].id)"
-              [attr.aria-label]="recentVideos[0].title">
-              <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + recentVideos[0].id + '/hqdefault.jpg'"
-                [alt]="recentVideos[0].title" />
-              <span class="play-icon">&#9658;</span>
-            </button>
-            <div class="featured-placeholder" *ngIf="!recentVideos.length && !videoLoadError">
-              Loading featured video...
+    <section class="featured-grid">
+      <div class="section-head">
+        <div class="section-label">Featured</div>
+        <h2 class="section-title">Our Network</h2>
+        <p class="section-sub fw-bold">Latest videos from all three channels</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4" *ngFor="let card of featuredCards">
+          <div class="featured-card" [ngClass]="card.colorClass">
+            <div class="featured-card-head">
+              <div>
+                <div class="featured-channel">{{ card.title }}</div>
+                <div class="featured-subs" *ngIf="card.subscribers">{{ card.subscribers }} subscribers</div>
+                <div class="featured-subs" *ngIf="!card.subscribers">Loading subscribers...</div>
+              </div>
             </div>
+            <div class="featured-video">
+              <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
+                *ngIf="card.video" (click)="openVideo(card.video.id)" [attr.aria-label]="card.video.title">
+                <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + card.video.id + '/hqdefault.jpg'"
+                  [alt]="card.video.title" />
+                <span class="play-icon">&#9658;</span>
+              </button>
+              <div class="featured-placeholder" *ngIf="!card.video && !videoLoadError">
+                Loading latest video...
+              </div>
+            </div>
+            <h3 class="featured-title">{{ card.video?.title || 'Latest upload' }}</h3>
+            <p class="featured-desc">{{ card.video?.description || 'No description available.' }}</p>
+            <button class="btn btn-light btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
+              *ngIf="card.video" (click)="openVideo(card.video.id)">Watch Now</button>
           </div>
-        </div>
-
-        <div class="col-lg-5">
-          <div class="section-label">Featured</div>
-          <h2 class="section-title">{{ recentVideos[0]?.title || 'Latest upload' }}</h2>
-          <p class="section-sub">
-            {{ recentVideos[0]?.description || 'Catch the latest discussion from Harsh ki Baat.' }}
-          </p>
-          <a class="btn btn-danger" href="#" *ngIf="recentVideos.length" data-bs-toggle="modal"
-            data-bs-target="#videoModal" (click)="openVideo(recentVideos[0].id)">Watch Now</a>
         </div>
       </div>
     </section>
+
+    
 
     <section class="recent">
       <div class="section-head">
@@ -129,6 +192,8 @@
         </button>
       </div>
     </section>
+
+    <app-channel-videos [sections]="extraChannelSections" (videoSelected)="openVideo($event)"></app-channel-videos>
 
     <section class="insights">
       <div class="section-head">
