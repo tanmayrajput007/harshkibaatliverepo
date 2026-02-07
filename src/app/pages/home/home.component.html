@@ -119,23 +119,17 @@
       <div class="section-head">
         <div class="section-label">Social</div>
         <h2 class="section-title">Latest Tweets</h2>
-        <p class="section-sub">Live feed from Harsh ki Baat on X (latest 10 tweets).</p>
+        <p class="section-sub">Latest text-only updates from Harsh ki Baat.</p>
       </div>
-      <div class="tweets-embed" #tweetsEmbed>
-        <div class="tweets-card-head">
-          <div class="x-icon" aria-hidden="true">X</div>
-          <div>
-            <div class="tweets-title">Harsh ki Baat</div>
-            <div class="tweets-handle">&#64;harshktweets</div>
-          </div>
+      <div class="tweets-list">
+        <div class="tweet-status" *ngIf="isLoadingTweets">Loading tweets...</div>
+        <div class="tweet-status error" *ngIf="tweetsError">{{ tweetsError }}</div>
+        <div class="tweet-card" *ngFor="let tweet of tweets">
+          <p class="tweet-text">{{ tweet.text }}</p>
+          <div class="tweet-date" *ngIf="tweet.created_at">{{ tweet.created_at | date:'mediumDate' }}</div>
         </div>
-        <div id="tweetsTimeline"></div>
-        <div class="tweets-loading" *ngIf="tweetsEmbedLoading && !tweetsEmbedFailed">
-          Loading tweets...
-        </div>
-        <div class="tweets-fallback" *ngIf="tweetsEmbedFailed">
-          Tweets are temporarily unavailable. View them on
-          <a class="tweets-link" target="_blank" rel="noopener" href="https://x.com/harshktweets?lang=en">X</a>.
+        <div class="tweet-status" *ngIf="!isLoadingTweets && !tweetsError && !tweets.length">
+          No tweets available.
         </div>
       </div>
     </section>

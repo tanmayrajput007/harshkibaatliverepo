@@ -242,60 +242,37 @@
 .tweets {
   margin-bottom: 4rem;
 
-  .tweets-embed {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 18px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-    min-height: 520px;
-  }
-
-  .tweets-card-head {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .x-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+  .tweets-list {
     display: grid;
-    place-items: center;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #fff;
-    background: #111827;
-    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.2);
+    gap: 1rem;
   }
 
-  .tweets-title {
-    font-weight: 700;
+  .tweet-card {
+    background: #fff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  }
+
+  .tweet-text {
+    margin: 0 0 0.75rem;
     color: var(--ink);
+    line-height: 1.6;
   }
 
-  .tweets-handle {
+  .tweet-date {
     font-size: 0.85rem;
     color: var(--muted);
   }
 
-  .tweets-fallback {
-    margin-top: 1rem;
+  .tweet-status {
     color: var(--muted);
     font-size: 0.95rem;
   }
 
-  .tweets-loading {
-    margin-top: 1rem;
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-
-  .tweets-link {
-    color: var(--accent);
-    font-weight: 600;
+  .tweet-status.error {
+    color: #b42318;
   }
 }
 

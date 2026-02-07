@@ -1,7 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SafePipe } from '../../core/safe.pipe';
 import { VideoCardComponent } from '../../shared/video-card/video-card.component';
 import { YoutubeService } from '../../core/youtube.service';
+import { XService } from '../../core/x.service';
 import { RouterLink } from '@angular/router';
 import { DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
@@ -15,7 +16,7 @@ import { environment } from '../../../environments/environment';
   standalone: true,
 
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
   currentYear = new Date().getFullYear();
 
   selectedVideoUrl: string | null = null;
@@ -26,13 +27,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   subscriberCount: string | null = null;
   subscriberCountError: string | null = null;
   subscriberCountDisplay: string | null = null;
-  tweetsEmbedFailed = false;
-  tweetsEmbedLoading = true;
+  tweets: { id: string; text: string; created_at?: string | null }[] = [];
+  isLoadingTweets = false;
+  tweetsError: string | null = null;
 
   @ViewChild('recentCarousel') recentCarousel?: ElementRef<HTMLDivElement>;
-  @ViewChild('tweetsEmbed') tweetsEmbed?: ElementRef<HTMLDivElement>;
 
-  constructor(private youtube: YoutubeService, private cdr: ChangeDetectorRef) {}
+  constructor(private youtube: YoutubeService, private xService: XService) {}
 
   ngOnInit() {
     // if (!environment.YOUTUBE_API_KEY || environment.YOUTUBE_API_KEY === 'AIzaSyB0SsMKimjoPU-GNy41LF9ZQK6UgSMqgso') {
@@ -64,6 +65,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
       },
       error: () => {
         this.subscriberCountError = 'Unable to load subscriber count.';
+      }
+    });
+
+    this.isLoadingTweets = true;
+    this.xService.fetchLatestTweets(6).subscribe({
+      next: (resp) => {
+        this.tweets = resp.tweets || [];
+        this.isLoadingTweets = false;
+      },
+      error: () => {
+        this.tweetsError = 'Unable to load tweets right now.';
+        this.isLoadingTweets = false;
       }
     });
   }
@@ -106,77 +119,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const gap = 24;
 
     carousel.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
-  }
-
-  ngAfterViewInit() {
-    this.loadTwitterWidgets();
-  }
-
-  private loadTwitterWidgets() {
-    const existing = document.getElementById('twitter-wjs');
-    if (existing) {
-      this.initTimelineWhenReady();
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.id = 'twitter-wjs';
-    script.src = 'https://platform.twitter.com/widgets.js';
-    script.async = true;
-    script.onload = () => {
-      this.initTimelineWhenReady();
-    };
-    document.body.appendChild(script);
-  }
-
-  private initTimelineWhenReady() {
-    const twttr = (window as any).twttr;
-    if (!twttr?.ready) {
-      return;
-    }
-
-    twttr.ready(() => {
-      const container = document.getElementById('tweetsTimeline');
-      if (!twttr?.widgets?.createTimeline || !container || container.childElementCount > 0) {
-        return;
-      }
-
-      this.tweetsEmbedLoading = true;
-      this.tweetsEmbedFailed = false;
-
-      const target = this.tweetsEmbed?.nativeElement;
-      if (twttr?.widgets?.load) {
-        twttr.widgets.load(target ?? undefined);
-      }
-
-      const timelinePromise = twttr.widgets.createTimeline(
-        { sourceType: 'profile', screenName: 'harshktweets' },
-        container,
-        { height: 520, theme: 'light', tweetLimit: 10, dnt: true }
-      );
-
-      if (timelinePromise?.then) {
-        timelinePromise
-          .then(() => {
-            this.tweetsEmbedLoading = false;
-            this.cdr.detectChanges();
-          })
-          .catch(() => {
-            this.tweetsEmbedFailed = true;
-            this.tweetsEmbedLoading = false;
-            this.cdr.detectChanges();
-          });
-      }
-
-      window.setTimeout(() => {
-        const hasIframe = !!container.querySelector('iframe');
-        if (!hasIframe) {
-          this.tweetsEmbedFailed = true;
-          this.tweetsEmbedLoading = false;
-          this.cdr.detectChanges();
-        }
-      }, 5000);
-    });
   }
 
 }
