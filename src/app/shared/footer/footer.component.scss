@@ -26,6 +26,12 @@
     line-height: 1.6;
   }
 
+  .footer-email {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #ffffff;
+  }
+
   .footer-links li {
     margin-bottom: 8px;
   }
@@ -45,6 +51,16 @@
   .btn-outline-light {
     border-color: rgba(255, 255, 255, 0.2);
     color: #ffffff;
+    background: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      background: transparent;
+      box-shadow: none;
+    }
   }
 
   .footer-divider {

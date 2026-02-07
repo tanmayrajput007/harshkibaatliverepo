@@ -32,4 +32,13 @@ export class YoutubeService {
       }))
     );
   }
+
+  fetchChannelStats() {
+    const params = new HttpParams()
+      .set('key', this.key)
+      .set('part', 'statistics')
+      .set('id', this.channelId);
+
+    return this.http.get(`${this.API}/channels`, { params });
+  }
 }

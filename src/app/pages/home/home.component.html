@@ -11,9 +11,19 @@
         <p class="hero-sub">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.</p>
         <div class="hero-actions d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
           <a class="btn btn-danger btn-lg" target="_blank" rel="noopener"
-            href="https://www.youtube.com/channel/UCIUd9149-XvdV0giPROH-eg" role="button">Watch on YouTube</a>
-          <a class="btn btn-outline-light btn-lg" target="_blank" rel="noopener"
-            href="https://www.youtube.com/channel/UCIUd9149-XvdV0giPROH-eg" role="button">Subscribe</a>
+            href="https://www.youtube.com/@harshkibaatLIVE" role="button">Watch on YouTube</a>
+          <a class="btn btn-outline-light btn-lg btn-static-outline" target="_blank" rel="noopener"
+            href="https://www.youtube.com/@harshkibaatLIVE" role="button">Subscribe</a>
+        </div>
+        <div class="subscribercount-div">
+          <div class="subscriber-label">Subscribers</div>
+          <div class="subscriber-value" *ngIf="subscriberCountDisplay; else subscriberCountFallback">
+            {{ subscriberCountDisplay }}
+          </div>
+          <ng-template #subscriberCountFallback>
+            <div class="subscriber-value" *ngIf="!subscriberCountError">Loading...</div>
+            <div class="subscriber-value error" *ngIf="subscriberCountError">{{ subscriberCountError }}</div>
+          </ng-template>
         </div>
         <div class="hero-stats">
           <div class="stat">
@@ -51,11 +61,11 @@
     <section class="featured">
       <div class="row g-4 align-items-center">
         <div class="col-lg-7">
-          <div class="ratio ratio-16x9 featured-video shadow-sm">
+          <div class="ratio featured-video shadow-sm">
             <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
               *ngIf="recentVideos.length"
               (click)="openVideo(recentVideos[0].id)" [attr.aria-label]="recentVideos[0].title">
-              <img class="healine-video-thumb" [src]="'https://img.youtube.com/vi/' + recentVideos[0].id + '/hqdefault.jpg'"
+              <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + recentVideos[0].id + '/hqdefault.jpg'"
                 [alt]="recentVideos[0].title" />
               <span class="play-icon">&#9658;</span>
             </button>
@@ -111,7 +121,7 @@
         <h2 class="section-title">Latest Tweets</h2>
         <p class="section-sub">Live feed from Harsh ki Baat on X (latest 10 tweets).</p>
       </div>
-      <div class="tweets-embed">
+      <div class="tweets-embed" #tweetsEmbed>
         <div class="tweets-card-head">
           <div class="x-icon" aria-hidden="true">X</div>
           <div>
@@ -119,8 +129,14 @@
             <div class="tweets-handle">&#64;harshktweets</div>
           </div>
         </div>
-        <a class="twitter-timeline" data-height="520" data-theme="light" data-tweet-limit="10"
-          href="https://x.com/harshktweets?lang=en">Tweets by &#64;harshktweets</a>
+        <div id="tweetsTimeline"></div>
+        <div class="tweets-loading" *ngIf="tweetsEmbedLoading && !tweetsEmbedFailed">
+          Loading tweets...
+        </div>
+        <div class="tweets-fallback" *ngIf="tweetsEmbedFailed">
+          Tweets are temporarily unavailable. View them on
+          <a class="tweets-link" target="_blank" rel="noopener" href="https://x.com/harshktweets?lang=en">X</a>.
+        </div>
       </div>
     </section>
 
@@ -133,14 +149,24 @@
       <div class="video-status" *ngIf="isLoadingVideos">Loading latest videos...</div>
       <div class="video-status error" *ngIf="videoLoadError">{{ videoLoadError }}</div>
       <div class="recent-carousel">
-        <div class="carousel-track">
-          <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
-            *ngFor="let video of recentVideos" (click)="openVideo(video.id)" [attr.aria-label]="video.title">
-            <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + video.id + '/hqdefault.jpg'"
-              [alt]="video.title" />
-            <span class="play-icon">&#9658;</span>
-          </button>
+        <button class="carousel-control prev" type="button" aria-label="Scroll videos left"
+          (click)="scrollRecent(-1)">
+          &#10094;
+        </button>
+        <div class="carousel-viewport" #recentCarousel>
+          <div class="carousel-track">
+            <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
+              *ngFor="let video of recentVideos" (click)="openVideo(video.id)" [attr.aria-label]="video.title">
+              <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + video.id + '/hqdefault.jpg'"
+                [alt]="video.title" />
+              <span class="play-icon">&#9658;</span>
+            </button>
+          </div>
         </div>
+        <button class="carousel-control next" type="button" aria-label="Scroll videos right"
+          (click)="scrollRecent(1)">
+          &#10095;
+        </button>
       </div>
     </section>
   </div>
