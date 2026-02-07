@@ -10,11 +10,11 @@ export class YoutubeService {
   private API = 'https://www.googleapis.com/youtube/v3';
   private key = environment.YOUTUBE_API_KEY;
   private channelId = environment.CHANNEL_ID;
-  private cache = new Map<string, { expiresAt: number; value: any }>();
+  private cache = new Map<string, { expiresAt: number; value: Observable<any> }>();
   private readonly cacheTtlMs = 10 * 60 * 1000;
   constructor(private http: HttpClient) { }
 
-  private getFromCache<T>(key: string): T | null {
+  private getFromCache(key: string): Observable<any> | null {
     const entry = this.cache.get(key);
     if (!entry) {
       return null;
@@ -23,10 +23,10 @@ export class YoutubeService {
       this.cache.delete(key);
       return null;
     }
-    return entry.value as T;
+    return entry.value;
   }
 
-  private setCache<T>(key: string, value: T) {
+  private setCache(key: string, value: Observable<any>) {
     this.cache.set(key, { expiresAt: Date.now() + this.cacheTtlMs, value });
   }
 
