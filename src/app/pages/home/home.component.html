@@ -25,6 +25,21 @@
             <div class="subscriber-value error" *ngIf="subscriberCountError">{{ subscriberCountError }}</div>
           </ng-template>
         </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">
+              <img src="assets\images\64px-Microsoft_Outlook_Icon_(2025–present).svg.png" alt="Outlook">
+            </span>
+            <span class="contact-text">harsh-kumar&#64;outlook.com</span>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon">
+              <img src="assets\images\662px-WhatsApp_icon.png" alt="WhatsApp">
+            </span>
+            <span class="contact-text">+91 98977 35444</span>
+          </div>
+        </div>
         <div class="hero-stats">
           <div class="stat">
             <div class="stat-value">Daily</div>
@@ -43,7 +58,7 @@
 
       <div class="col-lg-6 text-center text-lg-end">
         <div class="portrait-frame">
-          <img src="assets/images/WhatsApp Image 2025-12-05 at 00.08.38_4c908eb9-Photoroom.png" alt="Harsh"
+          <img src="assets\images\308127914_629379748754009_3693171855939681441_n.jpg (1).jpeg" alt="Harsh"
             class="portrait img-fluid" />
         </div>
         <div class="topic-chips">
@@ -63,8 +78,8 @@
         <div class="col-lg-7">
           <div class="ratio featured-video shadow-sm">
             <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
-              *ngIf="recentVideos.length"
-              (click)="openVideo(recentVideos[0].id)" [attr.aria-label]="recentVideos[0].title">
+              *ngIf="recentVideos.length" (click)="openVideo(recentVideos[0].id)"
+              [attr.aria-label]="recentVideos[0].title">
               <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + recentVideos[0].id + '/hqdefault.jpg'"
                 [alt]="recentVideos[0].title" />
               <span class="play-icon">&#9658;</span>
@@ -84,6 +99,34 @@
           <a class="btn btn-danger" href="#" *ngIf="recentVideos.length" data-bs-toggle="modal"
             data-bs-target="#videoModal" (click)="openVideo(recentVideos[0].id)">Watch Now</a>
         </div>
+      </div>
+    </section>
+
+    <section class="recent">
+      <div class="section-head">
+        <div class="section-label">Latest</div>
+        <h2 class="section-title">Recent Videos</h2>
+        <p class="section-sub">Catch up on the newest clips and daily analysis.</p>
+      </div>
+      <div class="video-status" *ngIf="isLoadingVideos">Loading latest videos...</div>
+      <div class="video-status error" *ngIf="videoLoadError">{{ videoLoadError }}</div>
+      <div class="recent-carousel">
+        <button class="carousel-control prev" type="button" aria-label="Scroll videos left" (click)="scrollRecent(-1)">
+          &#10094;
+        </button>
+        <div class="carousel-viewport" #recentCarousel>
+          <div class="carousel-track">
+            <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
+              *ngFor="let video of recentVideos" (click)="openVideo(video.id)" [attr.aria-label]="video.title">
+              <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + video.id + '/hqdefault.jpg'"
+                [alt]="video.title" />
+              <span class="play-icon">&#9658;</span>
+            </button>
+          </div>
+        </div>
+        <button class="carousel-control next" type="button" aria-label="Scroll videos right" (click)="scrollRecent(1)">
+          &#10095;
+        </button>
       </div>
     </section>
 
@@ -134,7 +177,7 @@
       </div>
     </section>
 
-    <section class="recent">
+    <!-- <section class="recent">
       <div class="section-head">
         <div class="section-label">Latest</div>
         <h2 class="section-title">Recent Videos</h2>
@@ -162,7 +205,7 @@
           &#10095;
         </button>
       </div>
-    </section>
+    </section> -->
   </div>
 </main>
 
