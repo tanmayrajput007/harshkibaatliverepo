@@ -155,7 +155,7 @@
               </div>
             </div>
             <h3 class="featured-title">{{ card.video?.title || 'Latest upload' }}</h3>
-            <p class="featured-desc">{{ card.video?.description || 'No description available.' }}</p>
+            <!-- <p class="featured-desc">{{ card.video?.description || 'No description available.' }}</p> -->
             <button class="btn btn-light btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
               *ngIf="card.video" (click)="openVideo(card.video.id)">Watch Now</button>
           </div>
