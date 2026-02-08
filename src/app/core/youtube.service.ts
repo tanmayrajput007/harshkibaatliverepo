@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -142,10 +142,88 @@ export class YoutubeService {
   }
 
   fetchChannelsBundle(channelIds: string[], maxResults = 10): Observable<any> {
-    const params = new HttpParams()
-      .set('channels', channelIds.join(','))
-      .set('maxResults', String(maxResults));
+    if (this.shouldUseNetlifyFunctions()) {
+      const params = new HttpParams()
+        .set('channels', channelIds.join(','))
+        .set('maxResults', String(maxResults));
 
-    return this.http.get(`/.netlify/functions/youtube`, { params });
+      return this.http.get(`/.netlify/functions/youtube`, { params });
+    }
+
+    return this.fetchChannelsBundleDirect(channelIds, maxResults);
+  }
+
+  private shouldUseNetlifyFunctions(): boolean {
+    if (environment.production) {
+      return true;
+    }
+
+    if (typeof window === 'undefined') {
+      return true;
+    }
+
+    const host = window.location.hostname;
+    return !(host === 'localhost' || host === '127.0.0.1');
+  }
+
+  private fetchChannelsBundleDirect(channelIds: string[], maxResults = 10): Observable<any> {
+    if (!channelIds.length) {
+      return of({ channels: [] });
+    }
+
+    const params = new HttpParams()
+      .set('key', this.key)
+      .set('part', 'contentDetails,statistics,snippet')
+      .set('id', channelIds.join(','));
+
+    return this.http.get(`${this.API}/channels`, { params }).pipe(
+      switchMap((resp: any) => {
+        const items = resp?.items || [];
+        const channelMap = items.map((item: any) => ({
+          id: item.id,
+          title: item?.snippet?.title || 'Channel',
+          uploads: item?.contentDetails?.relatedPlaylists?.uploads || null,
+          subscribers: item?.statistics?.subscriberCount || null
+        }));
+
+        if (!channelMap.length) {
+          return of({ channels: [] });
+        }
+
+        const requests = channelMap.map((channel:any) => {
+          if (!channel.uploads) {
+            return of({ channelId: channel.id, videos: [] });
+          }
+
+          const playlistParams = new HttpParams()
+            .set('key', this.key)
+            .set('part', 'snippet')
+            .set('playlistId', channel.uploads)
+            .set('maxResults', String(maxResults));
+
+          return this.http.get(`${this.API}/playlistItems`, { params: playlistParams }).pipe(
+            map((playlist: any) => ({
+              channelId: channel.id,
+              videos: (playlist?.items || []).map((item: any) => ({
+                id: item?.snippet?.resourceId?.videoId,
+                title: item?.snippet?.title || 'Recent video',
+                description: item?.snippet?.description || ''
+              }))
+            }))
+          );
+        });
+
+        return forkJoin(requests).pipe(
+          map((videosByChannel:any) => ({
+            channels: channelMap.map((channel:any) => ({
+              channelId: channel.id,
+              title: channel.title,
+              subscribers: channel.subscribers,
+              videos: videosByChannel.find((v:any) => v.channelId === channel.id)?.videos || []
+            }))
+          }))
+        );
+      })
+    );
   }
 }

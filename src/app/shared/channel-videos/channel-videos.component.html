@@ -1,14 +1,17 @@
 <section class="channels-wrapper" *ngIf="sections?.length">
   <div class="row g-4">
-    <div class="col-lg-6" *ngFor="let channel of sections; let idx = index">
+    <div class="col-lg-12" *ngFor="let channel of sections; let idx = index">
       <div class="channel-card">
         <div class="channel-head">
           <div class="section-label">Channel</div>
           <h2 class="section-title">{{ channel.title }}</h2>
           <p class="section-sub">Latest uploads from {{ channel.title }}.</p>
+          <p *ngIf="idx == 0" class="section-sub">Daily insights into global events that shape the world..</p>
+          <p *ngIf="idx == 1" class="section-sub">Breaking down news with context and clarity..</p>
+          <!-- <p class="section-sub fw-bold">Latest videos from all three channels</p> -->
         </div>
 
-        <div class="channel-carousel">
+        <div class="channel-carousel recent-carousel">
           <button class="carousel-control prev" type="button" aria-label="Scroll videos left"
             (click)="scrollChannel(idx, -1)">
             &#10094;
@@ -16,11 +19,14 @@
           <div class="carousel-viewport" #channelCarousel>
             <div class="carousel-track">
               <button class="video-card" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
-                *ngFor="let video of channel.videos" (click)="selectVideo(video.id)"
-                [attr.aria-label]="video.title">
+                *ngFor="let video of channel.videos" (click)="selectVideo(video.id)" [attr.aria-label]="video.title">
                 <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + video.id + '/hqdefault.jpg'"
                   [alt]="video.title" />
-                <span class="play-icon">&#9658;</span>
+                <span class="play-icon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" role="img" focusable="false" aria-hidden="true">
+                    <polygon points="24,18 24,46 46,32"></polygon>
+                  </svg>
+                </span>
               </button>
             </div>
           </div>

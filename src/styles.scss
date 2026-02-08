@@ -11,8 +11,8 @@
   --accent: #e63946;
   --accent-2: #f4d35e;
   --muted: #6b7280;
-  --font-display: 'Bricolage Grotesque', 'Work Sans', sans-serif;
-  --font-body: 'Work Sans', 'Bricolage Grotesque', sans-serif;
+  --font-display: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 body {
@@ -52,4 +52,13 @@ a {
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
     transform: translateY(-1px);
   }
+}
+
+.channel-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  height: 100%;
 }

@@ -128,7 +128,7 @@
 <main class="main-content">
   <div class="container">
     <section class="featured-grid">
-      <div class="section-head">
+      <div class="section-head mb-2">
         <div class="section-label">Featured</div>
         <h2 class="section-title">Our Network</h2>
         <p class="section-sub fw-bold">Latest videos from all three channels</p>
@@ -148,15 +148,21 @@
                 *ngIf="card.video" (click)="openVideo(card.video.id)" [attr.aria-label]="card.video.title">
                 <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + card.video.id + '/hqdefault.jpg'"
                   [alt]="card.video.title" />
-                <span class="play-icon">&#9658;</span>
+                <span class="play-icon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" role="img" focusable="false" aria-hidden="true">
+                    <polygon points="24,18 24,46 46,32"></polygon>
+                  </svg>
+                </span>
               </button>
               <div class="featured-placeholder" *ngIf="!card.video && !videoLoadError">
                 Loading latest video...
               </div>
             </div>
             <h3 class="featured-title">{{ card.video?.title || 'Latest upload' }}</h3>
-            <!-- <p class="featured-desc">{{ card.video?.description || 'No description available.' }}</p> -->
-            <button class="btn btn-light btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
+            <p class="featured-desc">
+              {{ (card.video?.description || 'No description available.') | slice:0:100 }}{{ (card.video?.description || '').length > 300 ? '...' : '' }}
+            </p>
+            <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
               *ngIf="card.video" (click)="openVideo(card.video.id)">Watch Now</button>
           </div>
         </div>
@@ -165,10 +171,15 @@
 
     
 
-    <section class="recent">
+    <h2 class="section-title">Recent Videos</h2>
+    <section class="recent channel-card">
+      <div class="channel-head">
+          <div class="section-label">Channel</div>
+          <h2 class="section-title">Harsh ki Baat LIVE</h2>
+          <p class="section-sub">Latest uploads from Harsh ki Baat LIVE.</p>
+        </div>
       <div class="section-head">
-        <div class="section-label">Latest</div>
-        <h2 class="section-title">Recent Videos</h2>
+        <!-- <div class="section-label">Latest</div> -->
         <p class="section-sub">Catch up on the newest clips and daily analysis.</p>
       </div>
       <div class="video-status" *ngIf="isLoadingVideos">Loading latest videos...</div>
@@ -183,7 +194,11 @@
               *ngFor="let video of recentVideos" (click)="openVideo(video.id)" [attr.aria-label]="video.title">
               <img class="video-thumb" [src]="'https://img.youtube.com/vi/' + video.id + '/hqdefault.jpg'"
                 [alt]="video.title" />
-              <span class="play-icon">&#9658;</span>
+              <span class="play-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" role="img" focusable="false" aria-hidden="true">
+                  <polygon points="24,18 24,46 46,32"></polygon>
+                </svg>
+              </span>
             </button>
           </div>
         </div>
@@ -196,7 +211,7 @@
     <app-channel-videos [sections]="extraChannelSections" (videoSelected)="openVideo($event)"></app-channel-videos>
 
     <section class="insights">
-      <div class="section-head">
+      <div class="section-head mb-2">
         <div class="section-label">Today</div>
         <h2 class="section-title">Focus Areas</h2>
         <p class="section-sub">Quick hits on the biggest stories shaping the day.</p>
@@ -223,7 +238,7 @@
       </div>
     </section>
 
-    <section class="tweets">
+    <!-- <section class="tweets">
       <div class="section-head">
         <div class="section-label">Social</div>
         <h2 class="section-title">Latest Tweets</h2>
@@ -240,7 +255,7 @@
           No tweets available.
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- <section class="recent">
       <div class="section-head">

@@ -4,14 +4,14 @@ import { VideoCardComponent } from '../../shared/video-card/video-card.component
 import { YoutubeService } from '../../core/youtube.service';
 import { XService } from '../../core/x.service';
 import { RouterLink } from '@angular/router';
-import { DatePipe, JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { DatePipe, JsonPipe, NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { ChannelVideosComponent } from '../../shared/channel-videos/channel-videos.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
-  imports: [SafePipe, VideoCardComponent, RouterLink, DatePipe, FooterComponent, JsonPipe, NgFor, NgIf, NgClass, ChannelVideosComponent],
+  imports: [SafePipe, VideoCardComponent, RouterLink, DatePipe, FooterComponent, JsonPipe, NgFor, NgIf, NgClass, ChannelVideosComponent , SlicePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
