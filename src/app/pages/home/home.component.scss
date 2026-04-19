@@ -310,7 +310,7 @@
 
   .featured-subs {
     font-size: 0.85rem;
-    color:black;
+    color: black;
   }
 
   .featured-video {
@@ -562,7 +562,7 @@
       max-width: 134px;
     }
 
-    .pbSm-2{
+    .pbSm-2 {
       padding-bottom: 25px;
     }
   }
@@ -596,7 +596,7 @@
     padding: 0rem;
   }
 
-  .padding-top-20px{
+  .padding-top-20px {
     padding-top: 20px;
   }
 }
@@ -608,6 +608,21 @@
       align-items: center;
     }
   }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 0.7rem !important;
+    letter-spacing: 1px;
+  }
+
+  .watchOnYoutubeButton{
+    padding: 6px;
+    font-size: 16px;
+  }
+
+  // .stat{
+  //   font-size: 10px;
+  // }
 }
 
 .video-modal {
@@ -654,6 +669,7 @@
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   width: 100%;
+
   &:hover {
     // transform: translateY(-6px);
     box-shadow: 0 24px 50px rgba(15, 23, 42, 0.26);

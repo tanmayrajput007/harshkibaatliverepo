@@ -8,21 +8,23 @@
           <span class="pill outline">Independent Analysis</span>
         </div> -->
         <h1 class="hero-title hero-title-desktop">harsh ki baat</h1>
-        <p class="hero-sub hero-sub-desktop">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.</p>
+        <p class="hero-sub hero-sub-desktop">Unfiltered opinions, political reality, and straight-to-the-point
+          breakdowns every day.</p>
         <div class="hero-actions d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-          <a class="btn btn-danger btn-lg" target="_blank" rel="noopener"
-            href="https://www.youtube.com/@harshkibaatLIVE" role="button">Watch on YouTube</a>
-          <!-- <a class="btn btn-outline-light btn-lg btn-static-outline" target="_blank" rel="noopener"
-            href="https://www.youtube.com/@harshkibaatLIVE" role="button">Subscribe</a> -->
-          <div class="subscribercount-div">
-            <div class="subscriber-label">Subscribers</div>
-            <div class="subscriber-value" *ngIf="subscriberCountDisplay; else subscriberCountFallback">
-              {{ subscriberCountDisplay }}
+          <div class="d-flex gap-3">
+            <div class="subscribercount-div">
+              <div class="subscriber-label">Subscribers</div>
+              <div class="subscriber-value" *ngIf="subscriberCountDisplay; else subscriberCountFallback">
+                {{ subscriberCountDisplay }}
+              </div>
+              <ng-template #subscriberCountFallback>
+                <div class="subscriber-value" *ngIf="!subscriberCountError">Loading...</div>
+                <div class="subscriber-value error" *ngIf="subscriberCountError">{{ subscriberCountError }}</div>
+              </ng-template>
             </div>
-            <ng-template #subscriberCountFallback>
-              <div class="subscriber-value" *ngIf="!subscriberCountError">Loading...</div>
-              <div class="subscriber-value error" *ngIf="subscriberCountError">{{ subscriberCountError }}</div>
-            </ng-template>
+            <a class="btn btn-danger btn-md watchOnYoutubeButton" target="_blank" rel="noopener"
+              href="https://www.youtube.com/@harshkibaatLIVE" role="button">Watch on YouTube</a>
+
           </div>
 
           <div class="hero-stats">
@@ -105,7 +107,8 @@
         </div>
         <div class="hero-mobile-copy">
           <h3 class="hero-title hero-mobile-title">harsh ki baat</h3>
-          <p class="hero-sub hero-sub-mobile">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.
+          <p class="hero-sub hero-sub-mobile">Unfiltered opinions, political reality, and straight-to-the-point
+            breakdowns every day.
           </p>
         </div>
 
