@@ -142,7 +142,7 @@
   }
 
   .portrait {
-    max-width: 360px;
+    max-width: 324px;
     border-radius: 22px;
     object-fit: cover;
   }
@@ -599,6 +599,11 @@
   .padding-top-20px {
     padding-top: 20px;
   }
+
+  .contact-info {
+    display: none !important;
+  }
+
 }
 
 @media (max-width: 575.98px) {
@@ -615,9 +620,13 @@
     letter-spacing: 1px;
   }
 
-  .watchOnYoutubeButton{
+  .watchOnYoutubeButton {
     padding: 6px;
     font-size: 16px;
+  }
+
+  .contact-info {
+    display: none !important;
   }
 
   // .stat{
@@ -705,6 +714,13 @@
 }
 
 .contact-info {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 0.65rem;
+  max-width: 360px;
+}
+
+.contact-info-mobile-view {
   margin-top: 1.6rem;
   display: grid;
   gap: 0.65rem;

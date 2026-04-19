@@ -131,9 +131,13 @@ export class HomeComponent implements OnInit {
       return value;
     }
 
-    if (count >= 1_000_000) {
-      const formatted = (count / 1_000_000).toFixed(count >= 10_000_000 ? 0 : 1);
-      return `${formatted}M`;
+    // if (count >= 1_000_000) {
+    //   const formatted = (count / 1_000_000).toFixed(count >= 10_000_000 ? 0 : 1);
+    //   return `${formatted}M`;
+    // }
+
+    if(count > 100000){
+      return (count / 100000).toFixed(1).replace('.0', '') + ' lakh';
     }
 
     if (count >= 1_000) {
