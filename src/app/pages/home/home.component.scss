@@ -58,6 +58,23 @@
     margin-bottom: 2rem;
   }
 
+  .hero-sub-desktop {
+    display: block;
+  }
+
+  .hero-title-desktop {
+    display: block;
+  }
+
+  .hero-mobile-copy {
+    display: none;
+  }
+
+  .hero-sub-mobile {
+    margin-bottom: 0;
+    max-width: 100%;
+  }
+
   .btn-outline-light {
     border-color: rgba(255, 255, 255, 0.25);
     color: #fff;
@@ -497,20 +514,62 @@
 @media (max-width: 991.98px) {
   .hero {
     text-align: center;
-    padding-top: 4rem;
+    padding: 0rem;
+    padding-top: 2rem;
+
+    .hero-visual {
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: left !important;
+    }
 
     .hero-stats {
       justify-content: center;
     }
 
+    .hero-sub-desktop {
+      display: none;
+    }
+
+    .hero-title-desktop {
+      display: none;
+    }
+
+    .hero-mobile-copy {
+      display: block;
+      max-width: 220px;
+    }
+
+    .hero-mobile-title {
+      font-size: clamp(1.55rem, 5.8vw, 2rem);
+      margin-bottom: 0.35rem;
+      line-height: 1.05;
+    }
+
+    .hero-sub-mobile {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .portrait-frame {
+      padding: 0.65rem;
+      border-radius: 20px;
+    }
+
     .portrait {
-      max-width: 280px;
+      max-width: 134px;
+    }
+
+    .pbSm-2{
+      padding-bottom: 25px;
     }
   }
 
   .recent {
     .video-card {
-      flex: 0 0 260px;
+      flex: 0 0 287px;
     }
 
     .carousel-control {
@@ -526,6 +585,19 @@
     .carousel-control.next {
       right: -6px;
     }
+  }
+
+  .top-info-block {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .main-content {
+    padding: 0rem;
+  }
+
+  .padding-top-20px{
+    padding-top: 20px;
   }
 }
 

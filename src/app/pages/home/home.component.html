@@ -1,14 +1,14 @@
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="container position-relative">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6 text-center text-lg-start">
+    <div class="row align-items-center g-5 top-info-block">
+      <div class="col-lg-6 text-center text-lg-start pbSm-2">
         <!-- <div class="badge-row">
           <span class="pill solid">Live Commentary</span>
           <span class="pill outline">Independent Analysis</span>
         </div> -->
-        <h1 class="hero-title">harsh ki baat</h1>
-        <p class="hero-sub">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.</p>
+        <h1 class="hero-title hero-title-desktop">harsh ki baat</h1>
+        <p class="hero-sub hero-sub-desktop">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.</p>
         <div class="hero-actions d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
           <a class="btn btn-danger btn-lg" target="_blank" rel="noopener"
             href="https://www.youtube.com/@harshkibaatLIVE" role="button">Watch on YouTube</a>
@@ -99,9 +99,14 @@
         </div> -->
       </div>
 
-      <div class="col-lg-6 text-center text-lg-end">
+      <div class="col-lg-6 text-center text-lg-end d-flex flex-row-reverse hero-visual">
         <div class="portrait-frame">
           <img src="assets\images\Untitled (33) (1).jpeg" alt="Harsh" class="portrait img-fluid" />
+        </div>
+        <div class="hero-mobile-copy">
+          <h3 class="hero-title hero-mobile-title">harsh ki baat</h3>
+          <p class="hero-sub hero-sub-mobile">Unfiltered opinions, political reality, and straight-to-the-point breakdowns every day.
+          </p>
         </div>
 
       </div>
@@ -126,7 +131,7 @@
 </section>
 
 <main class="main-content">
-  <div class="container">
+  <div class="container padding-top-20px">
     <section class="featured-grid">
       <div class="section-head mb-2">
         <div class="section-label">Featured</div>
@@ -160,7 +165,8 @@
             </div>
             <h3 class="featured-title">{{ card.video?.title || 'Latest upload' }}</h3>
             <p class="featured-desc">
-              {{ (card.video?.description || 'No description available.') | slice:0:100 }}{{ (card.video?.description || '').length > 300 ? '...' : '' }}
+              {{ (card.video?.description || 'No description available.') | slice:0:100 }}{{ (card.video?.description ||
+              '').length > 300 ? '...' : '' }}
             </p>
             <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#videoModal"
               *ngIf="card.video" (click)="openVideo(card.video.id)">Watch Now</button>
@@ -169,15 +175,15 @@
       </div>
     </section>
 
-    
+
 
     <h2 class="section-title">Recent Videos</h2>
     <section class="recent channel-card">
       <div class="channel-head">
-          <div class="section-label">Channel</div>
-          <h2 class="section-title">Harsh ki Baat LIVE</h2>
-          <p class="section-sub">Latest uploads from Harsh ki Baat LIVE.</p>
-        </div>
+        <div class="section-label">Channel</div>
+        <h2 class="section-title">Harsh ki Baat LIVE</h2>
+        <p class="section-sub">Latest uploads from Harsh ki Baat LIVE.</p>
+      </div>
       <div class="section-head">
         <!-- <div class="section-label">Latest</div> -->
         <p class="section-sub">Catch up on the newest clips and daily analysis.</p>
